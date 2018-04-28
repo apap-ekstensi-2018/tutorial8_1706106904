@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<head th:replace="fragments/fragment :: topfragment(title='Index')"></head>
+</head>
+<body>
+	<div th:replace="fragments/fragment :: header"></div>
+	<h2>Welcome</h2>
+
+
+	<h4 th:text=" 'Login as ' + ${#httpServletRequest.remoteUser}">Login as</h4>
+	<a th:if="${#httpServletRequest.isUserInRole('ADMIN')}"
+		href="/student/viewall">ViewAll Student</a>
+		<br/><br/>
+	<h5>View Student By NPM</h5>
+	<div th:if="${#httpServletRequest.isUserInRole('ADMIN')}">
+
+		<form class="form-inline" th:action="@{/student/view}" method="get">
+			<div class="form-group mx-sm-3 mb-2">
+				<input
+					type="text" class="form-control" id="npm" name="npm"
+					placeholder="NPM"/>
+			</div>
+			<button type="submit" class="btn btn-primary mb-2">Cari</button>
+		</form>
+	</div>	
+	<div th:if="${#httpServletRequest.isUserInRole('USER')}">
+
+		<form class="form-inline" th:action="@{/student/view}" method="get">
+			<div class="form-group mx-sm-3 mb-2">
+				<input
+					type="text" class="form-control" id="npm" name="npm"
+					placeholder="NPM"/>
+			</div>
+			<button type="submit" class="btn btn-primary mb-2">Cari</button>
+		</form>
+	</div>
+	
+	<br />
+	<br/>
+	<a href="/login">Login</a>
+
+</body>
+</html>
